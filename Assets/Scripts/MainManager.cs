@@ -12,7 +12,11 @@ public class MainManager : MonoBehaviour
 
     public Text ScoreText;
     public GameObject GameOverText;
-    
+
+    public Text upperScoreBoard;
+    private int upperScore;
+    private string playerName;
+
     private bool m_Started = false;
     private int m_Points;
     
@@ -22,6 +26,11 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PersistName.PersistentName.LoadHighScore();
+        playerName = PersistName.PersistentName.nameInput;
+        upperScore = PersistName.PersistentName.score;
+        upperScoreBoard.text = "Best Score : " + playerName + " : " + upperScore;
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -57,6 +66,10 @@ public class MainManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                if(m_Points > upperScore)
+                {
+                    PersistName.PersistentName.SaveHighScore(m_Points);
+                }
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
