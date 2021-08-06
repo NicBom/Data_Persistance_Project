@@ -12,7 +12,7 @@ public class PersistName : MonoBehaviour
     public string tempName;
     public int score;
 
-
+    //ensures the persistent class is a singleton.
     private void Awake()
     {
         if(PersistentName != null)
@@ -26,6 +26,7 @@ public class PersistName : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    //sets name based on input
     public void setName(string input)
     {
         tempName = input;
@@ -38,6 +39,7 @@ public class PersistName : MonoBehaviour
         public int score;
     }
 
+    //saves score and the Scene persistent name with the input of the new high score for session persistence.
     public void SaveHighScore(int scoreInput)
     {
         SaveScore save = new SaveScore();
@@ -49,6 +51,7 @@ public class PersistName : MonoBehaviour
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
+    //loads saved score for new high scorer. 
     public void LoadHighScore()
     {
         string path = Application.persistentDataPath + "/savefile.json";

@@ -13,6 +13,7 @@ public class MainManager : MonoBehaviour
     public Text ScoreText;
     public GameObject GameOverText;
 
+    //added lines to set up the upper text on main play screen. 
     public Text upperScoreBoard;
     private int upperScore;
     private string playerName;
@@ -26,9 +27,11 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //added lines. Loads previous high scorer and sets values for upper text to be set. 
         PersistName.PersistentName.LoadHighScore();
         playerName = PersistName.PersistentName.nameInput;
         upperScore = PersistName.PersistentName.score;
+
         upperScoreBoard.text = "Best Score : " + playerName + " : " + upperScore;
 
         const float step = 0.6f;
@@ -66,10 +69,12 @@ public class MainManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                //checks to see if there is a new high scorer, then overwrites previous high scorer. 
                 if(m_Points > upperScore)
                 {
                     PersistName.PersistentName.SaveHighScore(m_Points);
                 }
+
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
